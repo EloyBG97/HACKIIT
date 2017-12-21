@@ -3,35 +3,36 @@
 
 import sys
 
-def ftos(ifile)
-	msg = ''
-	 
+def ftos(ifile):
 	with open(ifile, 'r') as letter:
-    		msg += letter.read()
+    		msg = letter.read()
 
 	return msg
 
 def CesarCypher(n,msg):
 	msg2 = ''
+	n = int(n)
 
-	#Codigos ASCII
+	#Códigos ASCII
 	cod_a = ord('a')
 	cod_z = ord('z')
 	cod_A = ord('A')
 	cod_Z = ord('Z')
 
-	#Nº letras mayusculas/minusculas en código ASCII
+	#Nº letras mayúsculas/minúsculas en código ASCII
 	nletras = cod_z - cod_a + 1
 
-	inc_m = int(n) - cod_a
-	inc_M = int(n) - cod_A
+	inc_m = n - cod_a
+	inc_M = n - cod_A
 
-	for c in msg:
-		if ord(c) >= cod_a and ord(c) <= cod_z:
-			msg2 += chr((ord(c) + inc_m) % nletras + cod_a)
+	for c in msg:	
+		ascii = ord(c)
 
-		elif ord(c) >= cod_A and ord(c) <= cod_Z:
-			msg2 += chr((ord(c) + inc_M) % nletras + cod_A)
+		if ascii >= cod_a and ascii <= cod_z: 
+			msg2 +=  chr((ascii + inc_m) % nletras + cod_a)
+
+		elif ascii >= cod_A and ascii <= cod_Z:
+			msg2 += chr((ascii + inc_M) % nletras + cod_A)
 
 		else:
 			msg2 += c
@@ -41,7 +42,7 @@ def CesarCypher(n,msg):
 	
 if __name__ == '__main__':
 	if len(sys.argv) != 3: 
-		print 'Uso ' + sys.argv[0] + ' <n_desplazamientos> <fichero_cifrado>\n'
+		print >> sys.stderr, 'Uso ' + sys.argv[0] + ' <n_desplazamientos> <fichero_cifrado>\n'
 		sys.exit(2)
  
 	n = sys.argv[1]
@@ -50,4 +51,4 @@ if __name__ == '__main__':
 	msg = ftos(letter)
 
 	msg2 = CesarCypher(n,msg)
-	print msg2 + "\n"
+	print '\n' + msg2 + "\n"
