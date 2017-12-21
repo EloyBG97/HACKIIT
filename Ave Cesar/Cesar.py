@@ -3,7 +3,9 @@
 
 import sys
 
-def ftos(ifile):
+def ftos(ifile
+	msg = ''
+	 
 	with open(ifile, 'r') as letter:
     		msg += letter.read()
 
