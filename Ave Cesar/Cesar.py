@@ -5,7 +5,7 @@ import sys
 
 def ftos(ifile):
 	with open(ifile, 'r') as letter:
-    		msg = letter.read()
+    		msg += letter.read()
 
 	return msg
 
