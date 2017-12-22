@@ -2,6 +2,7 @@
 #-*- encoding: utf-8 -*-
 
 import sys
+from Tkinter import *
 
 def ftos(ifile):
 	with open(ifile, 'r') as letter:
@@ -9,7 +10,11 @@ def ftos(ifile):
 
 	return msg
 
-def CesarCypher(n,msg):
+def CesarCypher():
+	ifile = file_input.get()
+	n = offset_input.get()
+ 
+	msg = ftos(ifile)
 	msg2 = ''
 	n = int(n)
 
@@ -37,18 +42,36 @@ def CesarCypher(n,msg):
 		else:
 			msg2 += c
 
-	return msg2
+	solution.config(text = msg2)
 	
 	
 if __name__ == '__main__':
-	if len(sys.argv) != 3: 
-		print >> sys.stderr, 'Uso ' + sys.argv[0] + ' <n_desplazamientos> <fichero_cifrado>\n'
-		sys.exit(2)
- 
-	n = sys.argv[1]
-	letter = sys.argv[2]
+	raiz = Tk()
+	raiz.title('Cesar Cypher')
 
-	msg = ftos(letter)
+	ifile = ""
+	n = ""
+	
+	mainframe = Frame(raiz)
+	mainframe.grid(column=0,row=0,padx=(50,50),pady=(20,20))
 
-	msg2 = CesarCypher(n,msg)
-	print '\n' + msg2 + "\n"
+
+	file_tag = Label(mainframe,text='Introduzca el fichero: ')
+	file_tag.grid(column=1,row=1)	
+
+	file_input = Entry(mainframe,width = 10, textvariable= ifile)
+	file_input.grid(column = 2, row = 1)
+
+	offset_tag = Label(mainframe,text='Introduzca el desplazamiento: ')
+	offset_tag.grid(column=1,row=2)	
+
+	offset_input = Entry(mainframe,width = 10, textvariable= n)
+	offset_input.grid(column = 2, row = 2)
+
+	cypher_button = Button(mainframe, text='Descifrar', command = CesarCypher)
+	cypher_button.grid(column = 2, row =3)
+
+	solution = Label(mainframe,text='(Nothing)',relief="sunken", borderwidth=2, bg="white")
+	solution.grid(column=1,row=5)	
+
+	raiz.mainloop()
